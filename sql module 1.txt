@@ -1,0 +1,139 @@
+
+Step 2: Calculate the hike as mentioned in step 2 i.e 
+(b) i.e We need to divide the performance rating by 10 and multiply it with Annual CTC. For example, (6.9 * 1.4)/10 = 0.97
+
+We need to do this in the SELECT statement.
+
+select * from employee_dB_NEW
+
+select * ,(Annual_Ctc_LPA+Performace_Rating*hike)"new" from
+(select FIRST_NAME,Annual_Ctc_LPA,Performace_Rating,((Annual_Ctc_LPA * Performace_Rating)/10)"hike"  from employee_dB_NEW)a
+where FIRST_NAME = "GEETHA"
+===========================================================
+Question 1
+
+Display unique Designation Level column from “Employee Database”. Select the output you see.
+select distinct Designation_Level from  employee_dB_NEW
+==================================================================
+select gender,Designation_Level from employee_dB_NEW
+
+======================================================================
+select * from citizen_db
+
+select Full_Name,city from citizen_db
+where city = "mumbai"
+
+=======================================================================
+Assignment 2
+
+Q2: Display all the employees of the D4 designation level. Submit the last “First name” that you see in the list.
+
+
+select FIRST_NAME from employee_dB_NEW
+where Designation_Level = "D4"
+===================================================================================
+select * from citizen_db
+select Full_Name from citizen_db
+where Salary_Per_Month > 15000
+
+========================================================================
+find the name of citizen  whose age is less then 20
+
+select Full_Name from citizen_db
+where  Age < 20
+=======================================================================
+Question 2
+Find out employees with salaries of more than 10 LPA. Enter the first name.
+
+select * from employee_dB_NEW
+select FIRST_NAME from employee_dB_NEW
+where Annual_CTC_LPA >10
+==============================================================================
+
+Question 2
+
+Find out D3 level employees with salaries of more than 10 LPA. Enter the first name
+
+select * from employee_dB_NEW
+select FIRST_NAME,Designation_Level,Annual_CTC_LPA from employee_dB_NEW
+where Annual_CTC_LPA > 10 and Designation_Level = "D4"
+========================================================================================
+Question 3
+What is the full name of an employee from the DFT team of designation D1 and whose salary is more than 9 LPA.
+
+select * from employee_dB_NEW
+
+select FIRST_NAME,surname from employee_dB_NEW
+where Team_Name = "DFT" and Designation_Level = "D1" and Annual_CTC_LPA > 9
+
+===========================================================================================
+select * from citizen_db
+ques...find the name of citizen whose leves in mumai,hyderabad
+select Full_Name,city from citizen_db
+where city in ("mumbai","hyderabad")
+============================================================================================
+Question 2
+Find out D1 or D2 level employees with salaries less than 8 LPA. Enter the last “First name” from the results.
+==========================================================================================================
+
+select * from citizen_db
+select Full_Name from citizen_db
+where Salary_Per_Month >15000 and age<20
+====================================================
+select Full_Name,city from citizen_db
+where city ="mumbai" or 
+city = "hyderabad"
+=======================================================
+Question 2
+Find out D1 or D2 level employees with salaries less than 8 LPA. Enter the last “First name” from the results.
+
+select * from employee_dB_NEW
+select FIRST_NAME,Designation_Level,Annual_CTC_LPA from employee_dB_NEW
+where (Designation_Level = "D1"
+or Designation_Level = "D2")
+and Annual_CTC_LPA <8
+================================================================================================
+=========================
+select * from employee_dB_NEW
+where not (Designation_Level ="d1" or Designation_Level = "d2") and Team_Name = "vcs" 
+
+================================================================================================
+select * from churn_data
+where churn ="yes"
+limit 10
+====================
+select distinct(PaymentMethod) from churn_data
+
+========================================
+select * from churn_data
+
+select CustomerID,MonthlyCharges,churn from churn_data
+where churn = "no"
+and MonthlyCharges > 100
+==============================================================
+select count(*) from 
+(select CustomerID,InternetService from internet_data
+where  InternetService not in ( "DSL","fiber optic")
+)a
+===================================================================
+
+select * from churn_data
+
+select count(*)"golden customers" from
+(select CustomerID,tenure,churn from churn_data
+where churn = "no"
+and tenure between 50 and 70 )a
+
+
+
+
+
+
+
+
+
+
+
+
+
+

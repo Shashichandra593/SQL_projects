@@ -1,0 +1,1086 @@
+select  FIRST_NAME,Surname,Designation_Level,Team_Name
+from employee_dB_NEW
+where team_name="vcs" and not (Designation_Level="d1" or Designation_Level="d2");
+
+
+select * from employee_dB_NEW
+
+select count(*) from
+(select FIRST_NAME,Annual_Ctc_LPA from employee_dB_NEW
+where Annual_Ctc_LPA > (select Annual_Ctc_LPA from employee_dB_NEW where FIRST_NAME = "bharath")
+)employee_dB_NEW
+
+
+
+
+select * from movies_genre
+
+select title,rating from movies
+where Rating>
+
+(select rating from movies
+where title = "jurassic World")
+order by rating desc
+
+
+
+
+select * from employee_dB_NEW
+
+
+select FIRST_NAME,Annual_Ctc_LPA from employee_dB_NEW
+
+
+where Annual_CTC_LPA  < (select Annual_CTC_LPA from employee_dB_NEW
+where FIRST_NAME = "ajay kumar")
+and Annual_CTC_LPA >
+(select Annual_CTC_LPA from employee_dB_NEW
+where FIRST_NAME = "jitendra")
+order by 2
+
+
+
+
+............................................
+
+
+
+
+select * from movies
+select title,rating from movies
+where rating >
+
+(select rating from movies
+where title = "jurassic World")
+and rating < 
+(select rating from movies
+where title = "the avengers")
+order by 2 desc
+limit 2;
+
+select * from employee_dB_NEW
+
+
+select count(*)from
+(
+
+select FIRST_NAME,Annual_CTC_LPA from employee_dB_NEW
+where Annual_CTC_LPA >
+(select min(Annual_CTC_LPA) from employee_dB_NEW
+where team_name = "verification")
+
+and Annual_CTC_LPA > 
+(select min(Annual_CTC_LPA) from employee_dB_NEW
+where team_name = "zebu")
+
+)employee_dB_NEW
+
+...........................................
+select * from movies
+
+select title,Revenue_Millions from movies
+where Revenue_Millions >
+
+(select  sum(Revenue_Millions) from movies
+where year = 2013)
+order by 2 desc
+limit 2
+..................................................
+select and select clause
+
+select * from world
+
+
+1.How many countries have more area than India?
+
+select count(*) from 
+(
+select country,area from world
+where area > 
+(
+
+select area from world
+where country = "india"
+
+)
+
+)world
+............................................................................
+2.What is the average total_vaccinations of Asia continent          where    individual Asian countries total_vaccinations is      higher than in South Africa?
+
+select * from world
+select * from vaccinations
+
+SELECT Avg(total_vaccinations)
+FROM   `vaccinations`
+WHERE  total_vaccinations > (SELECT total_vaccinations FROM   `vaccinations`
+WHERE  country = 'South Africa')
+AND continent = 'Asia' 
+--------------------------------------------------------------------------------------------------------------------------------------
+select * from world
+
+
+select * from world
+where Population > (
+select max(Population) from world
+where continent = "europe"
+)
+
+............................................................
+1.How many countries with GDP less than the minimum GDP of the European country?
+
+
+select count(*)from world
+where gdp < 
+(
+select min(gdp) from world
+where continent = "Europe"
+)
+--------------------------------------------------------------------------------------------------------------------------------------
+2.Find out the list of countries   from Asia    which have a lower than the average value of “Total Vaccination Per Hundred” for all the countries. SQL query looks like this:
+
+select * from world
+select * from vaccinations
+
+select country from vaccinations
+where avg(total_vaccinations) 
+and
+select  sum(total_vaccinations)/100 from vaccinations
+where continent = "asia"
+)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+3.How many countries have total_vaccinations higher than European country’s highest total_vaccination?
+
+select count(*) from vaccinations
+where total_vaccinations >
+(
+
+select max(total_vaccinations) from vaccinations
+where continent = "Europe"
+
+)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+1.How many countries have less area than Russia but have a greater population than Pakistan?
+select * from world
+ 
+ 
+ 
+ select count(*)from world
+ where area <
+ (select area from world
+ where country = "russia"
+ )
+ and population > 
+ (select population from world
+ where country = "pakistan"
+ 
+)
+--------------------------------------------------------------------------------------------------------------------------------------
+We want to find out the countries with    their “Total Vaccinations Per Hundred” and “Daily Vaccinations Per Million” rather than the country with the maximum value from continent America.
+
+SELECT country
+FROM   `vaccinations`
+WHERE  continent = 'America'
+  AND total_vaccinations_per_hundred >
+   (SELECT daily_vaccinations_per_million
+    FROM   `vaccinations`
+   WHERE  continent IN ( "america" ))
+   
+  AND daily_vaccinations_per_million >
+  (SELECT total_vaccinations_per_hundred
+  FROM   `vaccinations`
+    continent IN ( "america" )
+    ) 
+
+select * from vaccinations
+select country from vaccinations
+
+4,..How many countries have people “vaccinated per 100” greater than India but lower than France?
+
+
+select count(*) from vaccinations
+where
+
+people_vaccinated_per_hundred > (select people_vaccinated_per_hundred from vaccinations
+ where country = "india")
+  AND
+  
+ people_vaccinated_per_hundred <  (select people_vaccinated_per_hundred from vaccinations
+ where country = "france"
+  )
+  
+ --------------------------------------------------------------------------------------------------------------------------------------
+ 
+5.How many countries have people_vaccinated    higher than countries    with the lowest people_vaccinated in 
+Asia but lower than countries with the highest people_vaccinated in Europe?
+
+select count(*) from vaccinations
+where
+people_vaccinated >
+(
+select min(people_vaccinated) from vaccinations
+where continent = "asia"
+)
+
+and 
+people_vaccinated < 
+(
+select max(people_vaccinated) from vaccinations
+where continent = "Europe"
+)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+SELECT Count(country)
+FROM   `vaccinations`
+WHERE  people_vaccinated < (SELECT Max(people_vaccinated)
+                            FROM   `vaccinations`
+                            WHERE  continent = 'Europe')
+       AND people_vaccinated > (SELECT Min(people_vaccinated)
+                                FROM   `vaccinations`
+                                WHERE  continent = 'Asia') 
+=================================================================================================================
+
+1.What is the percentage of the area of Kazakhstan with respect to its continent?
+
+select * from world
+
+
+select country,area *100/
+
+(select sum(area) from world
+where continent = "Europe")"per of area" from world
+where country = "kazakhstan";
+
+======================================================================================================
+2.In the following query, we want to calculate the continent-wise percentage of total_vaccinations. 
+  
+SELECT continent,
+ total_vaccination /(SELECT Sum(total_vaccinations)
+FROM   `vaccinations`)) AS perc_contitent_vaccination 
+FROM `vaccinations` 
+ORDER BY 2 DESC 
+GROUP BY continent
+
+
+2. we want to calculate the continent-wise percentage of total_vaccinations. 
+  
+select * from vaccinations
+
+select continent,sum(total_vaccinations)*100/(select sum(total_vaccinations)from vaccinations)
+from vaccinations
+group by 1
+
+===================================================================================================================
+3.What is the vaccination percentage of India out of total vaccinations in Asia? (Answer without % sign)
+
+select * from vaccinations
+
+select country,total_vaccinations *  100/(select sum(total_vaccinations)from vaccinations
+where continent = "asia") 
+from vaccinations
+where country = "india"
+============================================================================================================================
+4.Which country in Europe has the highest percentage of people vaccinated with respect to total people vaccinated in Europe?
+
+ select * from vaccinations
+ 
+ 
+select country,(total_vaccinations)*100/(select sum(total_vaccinations)from vaccinations)"high per vaccinations" from vaccinations
+where continent = "Europe"
+
+order by 2 desc
+ limit 1
+ ==========================================================================================================================
+ 1.ind out the continent with the highest area. Enter the area value.
+ select * from world
+
+=========================================================================================================================
+1.sort the percentage of the population of a country with respect to its continent. Enter the 3rd highest country name.
+
+
+select * from world
+
+select country,a.continent,(population * 100/total)"per" from world as a 
+inner join
+(select continent,sum(population)"total" from world 
+group by continent
+)b
+on a.continent = b.continent
+order by per desc
+
+solu 
+SELECT country,
+       a.continent,
+       population * 100 / total_population AS perc_contribution
+FROM   world a
+       INNER JOIN (SELECT continent,
+                          Sum(population) AS total_population
+                   FROM   world
+                   GROUP  BY continent) b
+               ON a.continent = b.continent
+ORDER  BY perc_contribution DESC 
+
+
+
+=====================================================================================================
+2.How many countries contribute to more than 20% of people vaccinated in their respective continents?
+
+select * from vaccinations
+select count(*)from
+(select country,(people_vaccinated *100 /total)"total_per" 
+from vaccinations a
+
+inner join
+(select continent,sum(people_vaccinated)"total" from vaccinations
+group by 1) b
+on a.continent = b.continent)a
+where a.total_per > 20
+
+  
+  SELECT Count(*)
+FROM   (SELECT country,
+               people_vaccinated * 100 / tot_people AS Perc_people_vaccinated
+        FROM   `vaccinations` a
+               INNER JOIN (SELECT continent,
+                                  Sum(people_vaccinated) AS tot_people
+                           FROM   `vaccinations`
+                           GROUP  BY continent) b
+                       ON a. continent = b.continent) A
+WHERE  perc_people_vaccinated > 20 
+  
+  ====================================================================================================== 
+  3.What is the difference in percentages of
+
+1. % of People vaccinated in India out of total people vaccinated in Asia
+
+2. % of people vaccinated in France out of total people vaccinated in Europe
+
+select * from vaccinations
+
+select country,people_vaccinated *100/ 
+ 
+ 
+  select continent,sum(total_vaccinations)from vaccinations
+  group by 1
+========================================================================
+select  FIRST_NAME,Surname,Designation_Level,Team_Name
+from employee_dB_NEW
+where team_name="vcs" and not (Designation_Level="d1" or Designation_Level="d2");
+
+
+select * from employee_dB_NEW
+
+select count(*) from
+(select FIRST_NAME,Annual_Ctc_LPA from employee_dB_NEW
+where Annual_Ctc_LPA > (select Annual_Ctc_LPA from employee_dB_NEW where FIRST_NAME = "bharath")
+)employee_dB_NEW
+
+
+
+
+select * from movies_genre
+
+select title,rating from movies
+where Rating>
+
+(select rating from movies
+where title = "jurassic World")
+order by rating desc
+
+
+
+
+select * from employee_dB_NEW
+
+
+select FIRST_NAME,Annual_Ctc_LPA from employee_dB_NEW
+
+
+where Annual_CTC_LPA  < (select Annual_CTC_LPA from employee_dB_NEW
+where FIRST_NAME = "ajay kumar")
+and Annual_CTC_LPA >
+(select Annual_CTC_LPA from employee_dB_NEW
+where FIRST_NAME = "jitendra")
+order by 2
+
+
+
+
+............................................
+
+
+
+
+select * from movies
+select title,rating from movies
+where rating >
+
+(select rating from movies
+where title = "jurassic World")
+and rating < 
+(select rating from movies
+where title = "the avengers")
+order by 2 desc
+limit 2;
+
+select * from employee_dB_NEW
+
+
+select count(*)from
+(
+
+select FIRST_NAME,Annual_CTC_LPA from employee_dB_NEW
+where Annual_CTC_LPA >
+(select min(Annual_CTC_LPA) from employee_dB_NEW
+where team_name = "verification")
+
+and Annual_CTC_LPA > 
+(select min(Annual_CTC_LPA) from employee_dB_NEW
+where team_name = "zebu")
+
+)employee_dB_NEW
+
+...........................................
+select * from movies
+
+select title,Revenue_Millions from movies
+where Revenue_Millions >
+
+(select  sum(Revenue_Millions) from movies
+where year = 2013)
+order by 2 desc
+limit 2
+..................................................
+select and select clause
+
+select * from world
+
+
+1.How many countries have more area than India?
+
+select count(*) from 
+(
+select country,area from world
+where area > 
+(
+
+select area from world
+where country = "india"
+
+)
+
+)world
+............................................................................
+2.What is the average total_vaccinations of Asia continent          where    individual Asian countries total_vaccinations is      higher than in South Africa?
+
+select * from world
+select * from vaccinations
+
+SELECT Avg(total_vaccinations)
+FROM   `vaccinations`
+WHERE  total_vaccinations > (SELECT total_vaccinations FROM   `vaccinations`
+WHERE  country = 'South Africa')
+AND continent = 'Asia' 
+--------------------------------------------------------------------------------------------------------------------------------------
+select * from world
+
+
+select * from world
+where Population > (
+select max(Population) from world
+where continent = "europe"
+)
+
+............................................................
+1.How many countries with GDP less than the minimum GDP of the European country?
+
+
+select count(*)from world
+where gdp < 
+(
+select min(gdp) from world
+where continent = "Europe"
+)
+--------------------------------------------------------------------------------------------------------------------------------------
+2.Find out the list of countries   from Asia    which have a lower than the average value of “Total Vaccination Per Hundred” for all the countries. SQL query looks like this:
+
+select * from world
+select * from vaccinations
+
+select country from vaccinations
+where avg(total_vaccinations) 
+and
+select  sum(total_vaccinations)/100 from vaccinations
+where continent = "asia"
+)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+3.How many countries have total_vaccinations higher than European country’s highest total_vaccination?
+
+select count(*) from vaccinations
+where total_vaccinations >
+(
+
+select max(total_vaccinations) from vaccinations
+where continent = "Europe"
+
+)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+1.How many countries have less area than Russia but have a greater population than Pakistan?
+select * from world
+ 
+ 
+ 
+ select count(*)from world
+ where area <
+ (select area from world
+ where country = "russia"
+ )
+ and population > 
+ (select population from world
+ where country = "pakistan"
+ 
+)
+--------------------------------------------------------------------------------------------------------------------------------------
+We want to find out the countries with    their “Total Vaccinations Per Hundred” and “Daily Vaccinations Per Million” rather than the country with the maximum value from continent America.
+
+SELECT country
+FROM   `vaccinations`
+WHERE  continent = 'America'
+  AND total_vaccinations_per_hundred >
+   (SELECT daily_vaccinations_per_million
+    FROM   `vaccinations`
+   WHERE  continent IN ( "america" ))
+   
+  AND daily_vaccinations_per_million >
+  (SELECT total_vaccinations_per_hundred
+  FROM   `vaccinations`
+    continent IN ( "america" )
+    ) 
+
+select * from vaccinations
+select country from vaccinations
+
+4,..How many countries have people “vaccinated per 100” greater than India but lower than France?
+
+
+select count(*) from vaccinations
+where
+
+people_vaccinated_per_hundred > (select people_vaccinated_per_hundred from vaccinations
+ where country = "india")
+  AND
+  
+ people_vaccinated_per_hundred <  (select people_vaccinated_per_hundred from vaccinations
+ where country = "france"
+  )
+  
+ --------------------------------------------------------------------------------------------------------------------------------------
+ 
+5.How many countries have people_vaccinated    higher than countries    with the lowest people_vaccinated in 
+Asia but lower than countries with the highest people_vaccinated in Europe?
+
+select count(*) from vaccinations
+where
+people_vaccinated >
+(
+select min(people_vaccinated) from vaccinations
+where continent = "asia"
+)
+
+and 
+people_vaccinated < 
+(
+select max(people_vaccinated) from vaccinations
+where continent = "Europe"
+)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+SELECT Count(country)
+FROM   `vaccinations`
+WHERE  people_vaccinated < (SELECT Max(people_vaccinated)
+                            FROM   `vaccinations`
+                            WHERE  continent = 'Europe')
+       AND people_vaccinated > (SELECT Min(people_vaccinated)
+                                FROM   `vaccinations`
+                                WHERE  continent = 'Asia') 
+=================================================================================================================
+
+1.What is the percentage of the area of Kazakhstan with respect to its continent?
+
+select * from world
+
+
+select country,area *100/
+
+(select sum(area) from world
+where continent = "Europe")"per of area" from world
+where country = "kazakhstan";
+
+======================================================================================================
+2.In the following query, we want to calculate the continent-wise percentage of total_vaccinations. 
+  
+SELECT continent,
+ total_vaccination /(SELECT Sum(total_vaccinations)
+FROM   `vaccinations`)) AS perc_contitent_vaccination 
+FROM `vaccinations` 
+ORDER BY 2 DESC 
+GROUP BY continent
+
+
+2. we want to calculate the continent-wise percentage of total_vaccinations. 
+  
+select * from vaccinations
+
+select continent,sum(total_vaccinations)*100/(select sum(total_vaccinations)from vaccinations)
+from vaccinations
+group by 1
+
+===================================================================================================================
+3.What is the vaccination percentage of India out of total vaccinations in Asia? (Answer without % sign)
+
+select * from vaccinations
+
+select country,total_vaccinations *  100/(select sum(total_vaccinations)from vaccinations
+where continent = "asia") 
+from vaccinations
+where country = "india"
+============================================================================================================================
+4.Which country in Europe has the highest percentage of people vaccinated with respect to total people vaccinated in Europe?
+
+ select * from vaccinations
+ 
+ 
+select country,(total_vaccinations)*100/(select sum(total_vaccinations)from vaccinations)"high per vaccinations" from vaccinations
+where continent = "Europe"
+
+order by 2 desc
+ limit 1
+ ==========================================================================================================================
+ 1.ind out the continent with the highest area. Enter the area value.
+ select * from world
+
+=========================================================================================================================
+1.sort the percentage of the population of a country with respect to its continent. Enter the 3rd highest country name.
+
+
+select * from world
+
+select country,a.continent,(population * 100/total)"per" from world as a 
+inner join
+(select continent,sum(population)"total" from world 
+group by continent
+)b
+on a.continent = b.continent
+order by per desc
+
+solu 
+SELECT country,
+       a.continent,
+       population * 100 / total_population AS perc_contribution
+FROM   world a
+       INNER JOIN (SELECT continent,
+                          Sum(population) AS total_population
+                   FROM   world
+                   GROUP  BY continent) b
+               ON a.continent = b.continent
+ORDER  BY perc_contribution DESC 
+
+
+
+=====================================================================================================
+2.How many countries contribute to more than 20% of people vaccinated in their respective continents?
+
+select * from vaccinations
+select count(*)from
+(select country,(people_vaccinated *100 /total)"total_per" 
+from vaccinations a
+
+inner join
+(select continent,sum(people_vaccinated)"total" from vaccinations
+group by 1) b
+on a.continent = b.continent)a
+where a.total_per > 20
+
+  
+  SELECT Count(*)
+FROM   (SELECT country,
+               people_vaccinated * 100 / tot_people AS Perc_people_vaccinated
+        FROM   `vaccinations` a
+               INNER JOIN (SELECT continent,
+                                  Sum(people_vaccinated) AS tot_people
+                           FROM   `vaccinations`
+                           GROUP  BY continent) b
+                       ON a. continent = b.continent) A
+WHERE  perc_people_vaccinated > 20 
+  
+  ====================================================================================================== 
+  3.What is the difference in percentages of
+
+1. % of People vaccinated in India out of total people vaccinated in Asia
+
+2. % of people vaccinated in France out of total people vaccinated in Europe
+
+select * from vaccinations
+
+select country,people_vaccinated *100/ 
+ 
+ 
+  select continent,sum(total_vaccinations)from vaccinations
+  group by 1
+  
+  
+  =============================
+  Find out the list of movies whose rating is more than Jurassic WorldFind out the list of movies whose rating is more than Jurassic World
+  
+  select * from movies
+  select title from movies
+  where rating >(
+  select rating from  movies
+  where title = "jurassic world")
+  ==================================
+    2.We want to find out the countries       with their “Total Vaccinations Per Hundred”
+    and “Daily Vaccinations Per Million” 
+    rather than the country 
+    
+    select country,continent from vaccinations
+    
+    with the maximum value from continent America.   
+   
+    SELECT country FROM `vaccinations`
+    where continent ="asia"
+
+                     and total_vaccinations_per_hundred >
+                                  (SELECT max(daily_vaccinations_per_million) FROM   `vaccinations`
+                                      WHERE  continent IN ("South america","north america"))
+       AND daily_vaccinations_per_million >
+           (SELECT max(total_vaccinations_per_hundred)
+            FROM   `vaccinations`
+            WHERE  continent IN ( "south america","north america" ) )
+ 
+           
+   select * from vaccinations
+
+
+
+
+
+
+
+
+
+
+
+
+
+select FIRST_NAME from employee_dB_NEW
+
+where Annual_CTC_LPA >
+(select Annual_CTC_LPA from employee_dB_NEW
+where FIRST_NAME = "jitendra")
+AND
+Annual_CTC_LPA < 
+
+(select Annual_CTC_LPA from employee_dB_NEW
+where FIRST_NAME = "ajay kumar"
+)
+=============================================================
+
+select title from movies
+where rating >
+
+(select rating from movies
+where title = "jurassic world"
+)
+and rating <
+
+
+(select rating from movies
+where title = "the avengers"
+)
+========================================================
+
+select * from employee_dB_NEW
+where Annual_CTC_LPA >
+
+(select min(Annual_CTC_LPA) from employee_dB_NEW
+where Team_Name in ("verification","zebu"))
+
+
+select * from movies
+select sum()
+
+==========================================================
+
+========================================================================
+2.Find out the list of countries from Asia which have a     lower than the average value of “Total Vaccination Per Hundred” for all the countries. SQL query looks like this:
+
+select * from vaccinations
+
+select country from vaccinations
+where  continent = "asia" and total_vaccinations_per_hundred <
+(
+
+SELECT Avg(total_vaccinations_per_hundred) from vaccinations
+
+
+
+)
+================================================================================================================================
+select max(total_population)
+from
+      (select continent,sum(population)"total"
+      from world
+      group by 1) as "summry"
+
+SELECT Max(total_population)
+
+FROM   (SELECT continent,
+
+               Sum(population) AS total_population
+
+        FROM   'world'
+
+        GROUP  BY continent) AS table_summary 
+===================================================================================
+1.Find out the continent with the highest area. Enter the area value.
+select * from world
+
+
+select max(total)
+from
+(select continent,sum(Area)"total" from world
+group by continent)as summry
+order by 2 desc
+================================================================
+
+2.Following query is used to find the average GDP per capita of the continent(short form of AGDPPCC). 
+Correct the query and enter the name of the continent which has the 3rd highest AGDPPCC.
+
+select * from world
+SELECT continent,
+       Sum(m)/Count(country)
+                  FROM(SELECT country, continent,gdp,population,population/gdp as "m" FROM world)as t
+GROUP  BY continent
+ORDER  BY 2
+
+======================================================================================================
+Write a SQL query to filter out countries and continents               where total_vaccinations_per_hundred is the same as people_vaccinated_per_hundred.
+
+Enter the number of continents which satisfy the above condition.
+
+SELECT continent,
+       ( Sum(gdp_per_capita) / Count(country) ) AS
+       avg_gdp_per_capita_of_continent
+FROM   (SELECT country,
+               continent,
+               gdp,
+               population,
+               gdp / population AS gdp_per_capita
+        FROM   world) AS t
+GROUP  BY continent
+ORDER  BY avg_gdp_per_capita_of_continent DESC 
+
+======================================================================================================
+Write a SQL query to filter out countries and continents               where total_vaccinations_per_hundred is the same as people_vaccinated_per_hundred.
+
+Enter the number of continents which satisfy the above condition.
+
+select count(*) from (
+
+select continent from vaccinations
+where
+ total_vaccinations_per_hundred =  people_vaccinated_per_hundred
+ group by continent
+)a
+
+==============================================================================
+self join 
+3.What is the difference in percentages of
+
+1. % of People vaccinated in India out of total people vaccinated in Asia
+
+2. % of people vaccinated in France out of total people vaccinated in Europe
+
+select * from vaccinations
+
+select country,a.continent,people_vaccinated *100/b.total as "per" from vaccinations a
+inner join 
+(select continent,sum(people_vaccinated)"total" from vaccinations
+group by 1
+)b 
+on a.continent = b.continent
+where country  in ("india","France")
+
+=====================================================================================
+Segment the countries based on the below criteria using CASE WHEN
+Total_vaccinations_per_hundred greater than 15: On-track
+Total_vaccinations_per_hundred between 5 and 15: Need improvement
+Total_vaccinations_per_hundred less than 5: Poor
+
+Select the list of countries where “Total_vaccinations_per_hundred” is poor.
+
+select country,
+case
+when Total_vaccinations_per_hundred > 15 THEN "ON-TRACK"
+
+when Total_vaccinations_per_hundred BETWEEN 5 AND 15 THEN "NEED IMPROVEMENT"
+
+when Total_vaccinations_per_hundred < 5 then "poor"
+end as Progress
+
+
+from vaccinations
+
+=============================================================
+SELECT country,continent,people_vaccinated,
+               CASE
+                 WHEN total_vaccinations_per_hundred > 15 THEN 'On-track'
+
+                 
+               END AS Progress
+        FROM   vaccinations
+     ===================================================================================================
+        
+ Question 2
+
+After you tagged all the countries (in the last question) based on their “Total_vaccinations_per_hundred” status.
+
+Find out how many people were vaccinated fully including all countries in the segment ‘On-track’?  
+   
+    
+    
+Assign the value ‘Single dose’ if the total_vaccinations is equal to people_vaccinated 
+and assign the ‘Double dose’ if people_vaccinated is less than
+total_vaccinations else assign ‘Unknown’
+
+Select the list of countries with “Double dose” done.
+
+
+SELECT * FROM vaccinations
+
+
+
+
+
+select country,dose from 
+
+( select country,if(total_vaccinations = people_vaccinated,"single dose" ,
+if(people_vaccinated < total_vaccinations,"double_dose","na"))"dose" from vaccinations
+
+)vaccinations
+where dose ="double_dose"
+order by country
+
+===================================================================================
+2.After you tagged all the countries (in the last question) with ‘Single dose’, ‘Double dose’ and ‘Unknown’ 
+find out how many countries are still in the ‘Single dose’ phase?
+
+select count(*) from 
+
+( select country,if(total_vaccinations = people_vaccinated,"single dose" ,
+if(people_vaccinated < total_vaccinations,"double_dose","na"))"dose" from vaccinations
+
+)vaccinations
+where dose ="single dose"
+
+=================================================================================
+3.What are the total “daily_vaccinations” of those countries where daily_vaccinations are greater than 10000?
+
+select * from vaccinations
+
+
+
+select sum(total)from
+(
+select country,sum(daily_vaccinations)"total" from vaccinations
+where daily_vaccinations > 10000
+group by 1
+
+)vaccinations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

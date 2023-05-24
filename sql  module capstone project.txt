@@ -1,0 +1,236 @@
+Sql module 3 capston project
+1.What is the highest sales amount in a day?
+
+select *  from sales_fact
+select date,sum(priceusd*quantity) from sales_fact
+group by date 
+order by 2 desc
+limit 1
+...........................................................................................
+What is the total sales of the category ‘Dairy’?
+
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+select c.category_desc,sum(quantity*priceusd) from sales_fact s 
+inner join category_dim c 
+
+on s.product_id=c.product_id
+group by c.category_desc 
+having c.category_desc = 'dairy'
+
+...............................................................--------------
+3.Which city has the highest sales?
+
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+select g.city,sum(quantity*priceusd) from sales_fact s 
+inner join  geography_dim g 
+on s.store_id = g.store_id
+group by 1
+order by 2 desc
+limit 1
+----------------------------------------------------------------------------------
+4..How many customers spent less than Rs. 3000?
+
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+select count(*) from
+(
+select  customer_id,sum(quantity*priceusd)"t"  from sales_fact
+group by 1
+having sum(quantity*priceusd) <3000
+order by t desc
+)sales_fact;
+,,,,,,,..........................................................
+5.What is the sales of the category ‘Cereals’ in the city Bangalore?
+select * from sales_fact
+select * from category_dim
+select * from geography_dim   
+
+select c.category_desc,sum(priceusd*quantity)"total"  from sales_fact s
+
+inner join category_dim c 
+on s.product_id = c.product_id
+
+inner join geography_dim g
+ on g.store_id = s.store_id
+
+where city = "Bangalore"
+group by 1
+having category_desc="cereals"
+------------------------------------------------------------------------------------------------
+6.Which category is the top category in terms of sales for the location Mumbai?
+select * from sales_fact
+select * from category_dim
+select * from geography_dim 
+
+select c.category_desc,g.city,sum(quantity*priceusd)from sales_fact s 
+inner join category_dim c 
+on s.product_id = c.product_id
+
+inner join geography_dim g 
+on g.store_id = s.store_id
+
+where g.city ="mumbai"
+group by 1
+
+order by 3 desc
+------------------------------------------------------------------------------------------------
+7.What is the highest sales value of category Drinks and Beverages in a single transaction? Value should reflect only sales of the mentioned category.
+
+select * from sales_fact
+select * from category_dim
+select * from geography_dim 
+
+
+select transaction_id,sum(quantity*priceusd)"total" from sales_fact s 
+inner join category_dim c 
+on s.product_id = c.product_id
+where c.category_desc = "Drinks & Bevrages"
+group by 1
+order by 2 desc
+------------------------------------------------------------------------------------------------------
+8.What is the average amount spent per customer in Chennai?
+select * from sales_fact
+select * from category_dim
+select * from geography_dim 
+
+select g.city,sum(quantity*priceusd)/count(distinct customer_id)"avg" from sales_fact s 
+inner join geography_dim g 
+on s.store_id = g.store_id
+where g.city = "chennai"
+group by 1
+-------------------------------------------------------------------------------------------------------------
+9.What is the sales amount of the lowest selling product in ‘Cereals’?
+
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+
+select s.product_id,sum(quantity*priceusd) from sales_fact s 
+inner join category_dim c
+on s.product_id = c.product_id
+where category_desc = "cereals"
+group by 1
+order by 2
+-------------------------------------------------------------------------------------------------------------
+10.What is the average revenue per customer in Maharashtra?
+
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+select state,sum(quantity*priceusd)/count(distinct product_id)"avg" from sales_fact s
+inner join geography_dim g 
+on s.store_id = g.store_id
+where g.state = "Maharashtra"
+group  by state
+-----------------------------------------------------------------------------
+11.How many customers in Karnataka spent less than Rs 3000?
+
+
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+
+select count(*) from
+(select customer_id,sum(quantity*priceusd)"spend" from sales_fact s 
+inner join geography_dim g 
+on s.store_id = g.store_id
+where state = "Karnataka"
+group by 1
+having spend < 3000)sales_fact
+----------------------------------------------------------------------------------------------------------------
+12.How many cities have average revenue per customer lesser than Rs 3500?
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+
+select count(*)from
+(select city,sum(quantity*priceusd)/count(distinct customer_id)"avg" from sales_fact s 
+inner join geography_dim g 
+on s.store_id = g.store_id
+group by city
+having avg < 3500)s
+----------------------------------------------------------------------------------------------------------------
+13.Which product was bought by the most number of customers?
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+select s.product_id,count( distinct customer_id) from sales_fact s 
+group by 1
+order by 2 desc
+
+=----------------------------------------------------------------------------------------------------------------
+14.How many products were bought by at least 5 customers in Maharashtra?
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+select count(*)from
+(select distinct product_id,count(product_id)"no" from sales_fact s 
+inner join geography_dim g 
+on s.store_id = g.store_id
+where  g.state = "Maharashtra"
+group by 1
+having no >4
+)s
+
+--------------------------------------------------------------------------------------------------------------------
+
+15.What is the highest average amount spent per product by a customer?
+
+select * from sales_fact
+select * from category_dim
+select * from geography_dim
+
+
+select customer_id,sum(quantity*priceusd)/sum(quantity)as "avg" from sales_fact
+group by 1
+order by  avg desc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

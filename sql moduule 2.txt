@@ -1,0 +1,705 @@
+select * from xyz_store_sales
+select count(distinct(item)) from xyz_store_sales
+select distinct(count(item)) from xyz_store_sales
+===============================================================
+select count(item) from xyz_store_sales
+where item = "binder"
+=========================
+select avg(Quantity_ordered) from abc_store_sales
+where Order_Priority = "critical"
+========================================================
+select * from xyz_store_sales
+select count(item) from xyz_store_sales
+where region = "east" and item in ("binder","desk","pencil")
+=====================================================================
+select * from xyz_store_sales
+select sum(Units) from xyz_store_sales
+where Rep in ( "Richard", "susan") and region = "east"
+=======================================================================
+
+select * from abc_store_sales
+
+select avg(Quantity_ordered) from abc_store_sales
+where state = "california"
+and customer_sagment = "corporate"
+==============================================================
+select * from citizen_db
+select Full_Name,Salary_Per_Month from citizen_db
+order by 2 desc
+limit 6,1
+==================================================================
+select FIRST_NAME,Surname,Annual_CTC_LPA,Performace_Rating from employee_dB_NEW
+
+order by   3 desc
+limit 1 offset 2
+
+=======================================================================================
+Question 4
+
+Who is the fifth-worst performing person on the IT-admin team? Submit the full name of the employee.
+select * from employee_dB_NEW
+select concat(FIRST_NAME, "  ",surname)"full name",Performace_Rating from employee_dB_NEW
+where Team_Name = "IT-admin"
+order by 2 asc
+limit 1 offset 4
+================================================================================================
+
+Question 1
+
+How many people are in the IT-Admin team?
+select count(*) from employee_dB_NEW
+where Team_Name = "IT-Admin"
+=====================================================================
+Question 2
+
+How many members of the Verification team have low-performance ratings (less than 2)?
+
+select * from employee_dB_NEW
+select count(*) from employee_dB_NEW
+where Team_Name = "verification" and
+Performace_Rating < 2;
+=========================================
+Question 3
+1/1 point (graded)
+Count all the employees of designation level D3 who are not from Zebu team.
+select count(*) from employee_dB_NEW
+where Team_Name !="Zebu"
+and Designation_Level = "D3"
+======================================================================================
+Question 4
+1/1 point (graded)
+Find how many female employees of designation level D2 and D3 are from VCS team?
+
+select count(*)from employee_dB_NEW
+where Gender = "F" and 
+Designation_Level in("D2","D3")and
+Team_Name = "vcs"
+==========================================================================================
+Question 1
+1/1 point (graded)
+What is the minimum rating of an employee in the DFT team?
+select * from employee_dB_NEW
+select min(Performace_Rating) from employee_dB_NEW
+where Team_Name = "DFT"
+=================================================================
+Question 2
+1/1 point (graded)
+Find out the highest CTC of an employee who has a bad performance(less than 2) ratings in the Zebu team.
+
+select max(Annual_CTC_LPA) from employee_dB_NEW
+where Team_Name = "Zebu" and Performace_Rating <2
+
+=========================================================
+Question 1
+1/1 point (graded)
+Find how much(in LPA) in total it costs for the company to sustain team DFT
+ 
+select * from employee_dB_NEW
+
+select sum(Annual_CTC_LPA) from employee_dB_NEW
+where Team_Name = "DFT"
+
+=================================================================
+Question 2
+1/1 point (graded)
+Find out the total salary(in LPA) of D1 designation level.
+select Designation_Level ,sum(Annual_CTC_LPA) from employee_dB_NEW
+group by 1
+order by 2
+===================================================================
+select * from citizen_db
+select Full_Name,Date_of_Job_Start,dayname(Date_of_Job_Start),monthname(Date_of_Job_Start),year(Date_of_Job_Start) from citizen_db
+
+
+select count(*) from employee_dB_NEW
+where dayname(JOINING_DATE) ="Sunday"
+
+=====================================================================================
+Question 2
+1/1 point (graded)
+How many employees joined in February?
+select * from employee_dB_NEW
+
+select count(*) from employee_dB_NEW
+where monthname(JOINING_DATE) = "February"
+
+======================================================
+Question 3
+1/1 point (graded)
+How many employees joined in the recent year?
+
+select count(*) from employee_dB_NEW
+where year(JOINING_DATE) =2019
+================================================
+Question 4
+1/1 point (graded)
+Find out the number of employees joined in the second half of the year
+
+select * from employee_dB_NEW
+select count(*) from employee_dB_NEW
+where month(JOINING_DATE) >5
+
+======================================================================================
+Question 5
+1/1 point (graded)
+Count the number of women with salary between 5 and 10 LPA and who joined before 2015 and have performance rating more than 2
+select count(*)from employee_dB_NEW
+where gender = "F" and  Annual_CTC_LPA between 5 and 10 and year(JOINING_DATE) < 2015 and Performace_Rating >2
+
+===========================================================================================================================================
+Question 1
+1/1 point (graded)
+Find out number of employees who are joined in the last 10 years.
+
+Assume current date is 31-12-2020
+
+
+select count(*) from employee_dB_NEW
+where Joining_Date >= date_add("2020-12-31",interval -10 year)
+
+SELECT Count(*)
+FROM   employee_dB_NEW
+WHERE  joining_date >= Date_add(now(), INTERVAL -10 year);
+=====================================================================================================
+    Question 1
+1/1 point (graded)
+On an average, after how many years employee’s get promoted in the company?
+
+select * from employee_dB_NEW.
+
+SELECT Round(Avg(Datediff(last_promoted, joining_date) / 365)) AS "years"
+FROM   employee_dB_NEW
+
+====================================================
+select upper(replace("vinod","d","sha"))
+
+==============================================================
+Question 1.2
+On an average, after how many years employee’s get promoted in the company?
+
+Round off the value to whole number.
+
+select * from employee_dB_NEW
+
+select ucase(substr("shashi",1,3))
+
+=========================================================================
+ques........Submit the employee code of employee ID 43.
+select * from employee_dB_NEW
+select concat(substr(FIRST_NAME,1,1),substr(Surname,1,1),"- ",year(joining_date),"-",gender,employee_id)"employee_id" from employee_dB_NEW
+
+where employee_id = 43
+==================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select * from xyz_store_sales
+select count(distinct(item)) from xyz_store_sales
+select distinct(count(item)) from xyz_store_sales
+===============================================================
+select count(item) from xyz_store_sales
+where item = "binder"
+=========================
+select avg(Quantity_ordered) from abc_store_sales
+where Order_Priority = "critical"
+========================================================
+select * from xyz_store_sales
+select count(item) from xyz_store_sales
+where region = "east" and item in ("binder","desk","pencil")
+=====================================================================
+select * from xyz_store_sales
+select sum(Units) from xyz_store_sales
+where Rep in ( "Richard", "susan") and region = "east"
+=======================================================================
+
+select * from abc_store_sales
+
+select avg(Quantity_ordered) from abc_store_sales
+where state = "california"
+and customer_sagment = "corporate"
+==============================================================
+select * from citizen_db
+select Full_Name,Salary_Per_Month from citizen_db
+order by 2 desc
+limit 6,1
+==================================================================
+select FIRST_NAME,Surname,Annual_CTC_LPA,Performace_Rating from employee_dB_NEW
+
+order by   3 desc
+limit 1 offset 2
+
+=======================================================================================
+Question 4
+
+Who is the fifth-worst performing person on the IT-admin team? Submit the full name of the employee.
+select * from employee_dB_NEW
+select concat(FIRST_NAME, "  ",surname)"full name",Performace_Rating from employee_dB_NEW
+where Team_Name = "IT-admin"
+order by 2 asc
+limit 1 offset 4
+================================================================================================
+
+Question 1
+
+How many people are in the IT-Admin team?
+select count(*) from employee_dB_NEW
+where Team_Name = "IT-Admin"
+=====================================================================
+Question 2
+
+How many members of the Verification team have low-performance ratings (less than 2)?
+
+select * from employee_dB_NEW
+select count(*) from employee_dB_NEW
+where Team_Name = "verification" and
+Performace_Rating < 2;
+=========================================
+Question 3
+1/1 point (graded)
+Count all the employees of designation level D3 who are not from Zebu team.
+select count(*) from employee_dB_NEW
+where Team_Name !="Zebu"
+and Designation_Level = "D3"
+======================================================================================
+Question 4
+1/1 point (graded)
+Find how many female employees of designation level D2 and D3 are from VCS team?
+
+select count(*)from employee_dB_NEW
+where Gender = "F" and 
+Designation_Level in("D2","D3")and
+Team_Name = "vcs"
+==========================================================================================
+Question 1
+1/1 point (graded)
+What is the minimum rating of an employee in the DFT team?
+select * from employee_dB_NEW
+select min(Performace_Rating) from employee_dB_NEW
+where Team_Name = "DFT"
+=================================================================
+Question 2
+1/1 point (graded)
+Find out the highest CTC of an employee who has a bad performance(less than 2) ratings in the Zebu team.
+
+select max(Annual_CTC_LPA) from employee_dB_NEW
+where Team_Name = "Zebu" and Performace_Rating <2
+
+=========================================================
+Question 1
+1/1 point (graded)
+Find how much(in LPA) in total it costs for the company to sustain team DFT
+ 
+select * from employee_dB_NEW
+
+select sum(Annual_CTC_LPA) from employee_dB_NEW
+where Team_Name = "DFT"
+
+=================================================================
+Question 2
+1/1 point (graded)
+Find out the total salary(in LPA) of D1 designation level.
+select Designation_Level ,sum(Annual_CTC_LPA) from employee_dB_NEW
+group by 1
+order by 2
+===================================================================
+select * from citizen_db
+select Full_Name,Date_of_Job_Start,dayname(Date_of_Job_Start),monthname(Date_of_Job_Start),year(Date_of_Job_Start) from citizen_db
+
+
+select count(*) from employee_dB_NEW
+where dayname(JOINING_DATE) ="Sunday"
+
+=====================================================================================
+Question 2
+1/1 point (graded)
+How many employees joined in February?
+select * from employee_dB_NEW
+
+select count(*) from employee_dB_NEW
+where monthname(JOINING_DATE) = "February"
+
+======================================================
+Question 3
+1/1 point (graded)
+How many employees joined in the recent year?
+
+select count(*) from employee_dB_NEW
+where year(JOINING_DATE) =2019
+================================================
+Question 4
+1/1 point (graded)
+Find out the number of employees joined in the second half of the year
+
+select * from employee_dB_NEW
+select count(*) from employee_dB_NEW
+where month(JOINING_DATE) >5
+
+======================================================================================
+Question 5
+1/1 point (graded)
+Count the number of women with salary between 5 and 10 LPA and who joined before 2015 and have performance rating more than 2
+select count(*)from employee_dB_NEW
+where gender = "F" and  Annual_CTC_LPA between 5 and 10 and year(JOINING_DATE) < 2015 and Performace_Rating >2
+
+===========================================================================================================================================
+Question 1
+1/1 point (graded)
+Find out number of employees who are joined in the last 10 years.
+
+Assume current date is 31-12-2020
+
+
+select count(*) from employee_dB_NEW
+where Joining_Date >= date_add("2020-12-31",interval -10 year)
+
+SELECT Count(*)
+FROM   employee_dB_NEW
+WHERE  joining_date >= Date_add(now(), INTERVAL -10 year);
+=====================================================================================================
+    Question 1
+1/1 point (graded)
+On an average, after how many years employee’s get promoted in the company?
+
+select * from employee_dB_NEW.
+
+SELECT Round(Avg(Datediff(last_promoted, joining_date) / 365)) AS "years"
+FROM   employee_dB_NEW
+
+====================================================
+select upper(replace("vinod","d","sha"))
+
+==============================================================
+Question 1.2
+On an average, after how many years employee’s get promoted in the company?
+
+Round off the value to whole number.
+
+select * from employee_dB_NEW
+
+select ucase(substr("shashi",1,3))
+
+=========================================================================
+ques........Submit the employee code of employee ID 43.
+select * from employee_dB_NEW
+select concat(substr(FIRST_NAME,1,1),substr(Surname,1,1),"- ",year(joining_date),"-",gender,employee_id)"employee_id" from employee_dB_NEW
+
+where employee_id = 43
+==================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select * from xyz_store_sales
+select count(distinct(item)) from xyz_store_sales
+select distinct(count(item)) from xyz_store_sales
+===============================================================
+select count(item) from xyz_store_sales
+where item = "binder"
+=========================
+select avg(Quantity_ordered) from abc_store_sales
+where Order_Priority = "critical"
+========================================================
+select * from xyz_store_sales
+select count(item) from xyz_store_sales
+where region = "east" and item in ("binder","desk","pencil")
+=====================================================================
+select * from xyz_store_sales
+select sum(Units) from xyz_store_sales
+where Rep in ( "Richard", "susan") and region = "east"
+=======================================================================
+
+select * from abc_store_sales
+
+select avg(Quantity_ordered) from abc_store_sales
+where state = "california"
+and customer_sagment = "corporate"
+==============================================================
+select * from citizen_db
+select Full_Name,Salary_Per_Month from citizen_db
+order by 2 desc
+limit 6,1
+==================================================================
+select FIRST_NAME,Surname,Annual_CTC_LPA,Performace_Rating from employee_dB_NEW
+
+order by   3 desc
+limit 1 offset 2
+
+=======================================================================================
+Question 4
+
+Who is the fifth-worst performing person on the IT-admin team? Submit the full name of the employee.
+select * from employee_dB_NEW
+select concat(FIRST_NAME, "  ",surname)"full name",Performace_Rating from employee_dB_NEW
+where Team_Name = "IT-admin"
+order by 2 asc
+limit 1 offset 4
+================================================================================================
+
+Question 1
+
+How many people are in the IT-Admin team?
+select count(*) from employee_dB_NEW
+where Team_Name = "IT-Admin"
+=====================================================================
+Question 2
+
+How many members of the Verification team have low-performance ratings (less than 2)?
+
+select * from employee_dB_NEW
+select count(*) from employee_dB_NEW
+where Team_Name = "verification" and
+Performace_Rating < 2;
+=========================================
+Question 3
+1/1 point (graded)
+Count all the employees of designation level D3 who are not from Zebu team.
+select count(*) from employee_dB_NEW
+where Team_Name !="Zebu"
+and Designation_Level = "D3"
+======================================================================================
+Question 4
+1/1 point (graded)
+Find how many female employees of designation level D2 and D3 are from VCS team?
+
+select count(*)from employee_dB_NEW
+where Gender = "F" and 
+Designation_Level in("D2","D3")and
+Team_Name = "vcs"
+==========================================================================================
+Question 1
+1/1 point (graded)
+What is the minimum rating of an employee in the DFT team?
+select * from employee_dB_NEW
+select min(Performace_Rating) from employee_dB_NEW
+where Team_Name = "DFT"
+=================================================================
+Question 2
+1/1 point (graded)
+Find out the highest CTC of an employee who has a bad performance(less than 2) ratings in the Zebu team.
+
+select max(Annual_CTC_LPA) from employee_dB_NEW
+where Team_Name = "Zebu" and Performace_Rating <2
+
+=========================================================
+Question 1
+1/1 point (graded)
+Find how much(in LPA) in total it costs for the company to sustain team DFT
+ 
+select * from employee_dB_NEW
+
+select sum(Annual_CTC_LPA) from employee_dB_NEW
+where Team_Name = "DFT"
+
+=================================================================
+Question 2
+1/1 point (graded)
+Find out the total salary(in LPA) of D1 designation level.
+select Designation_Level ,sum(Annual_CTC_LPA) from employee_dB_NEW
+group by 1
+order by 2
+===================================================================
+select * from citizen_db
+select Full_Name,Date_of_Job_Start,dayname(Date_of_Job_Start),monthname(Date_of_Job_Start),year(Date_of_Job_Start) from citizen_db
+
+
+select count(*) from employee_dB_NEW
+where dayname(JOINING_DATE) ="Sunday"
+
+=====================================================================================
+Question 2
+1/1 point (graded)
+How many employees joined in February?
+select * from employee_dB_NEW
+
+select count(*) from employee_dB_NEW
+where monthname(JOINING_DATE) = "February"
+
+======================================================
+Question 3
+1/1 point (graded)
+How many employees joined in the recent year?
+
+select count(*) from employee_dB_NEW
+where year(JOINING_DATE) =2019
+================================================
+Question 4
+1/1 point (graded)
+Find out the number of employees joined in the second half of the year
+
+select * from employee_dB_NEW
+select count(*) from employee_dB_NEW
+where month(JOINING_DATE) >5
+
+======================================================================================
+Question 5
+1/1 point (graded)
+Count the number of women with salary between 5 and 10 LPA and who joined before 2015 and have performance rating more than 2
+select count(*)from employee_dB_NEW
+where gender = "F" and  Annual_CTC_LPA between 5 and 10 and year(JOINING_DATE) < 2015 and Performace_Rating >2
+
+===========================================================================================================================================
+Question 1
+1/1 point (graded)
+Find out number of employees who are joined in the last 10 years.
+
+Assume current date is 31-12-2020
+
+
+select count(*) from employee_dB_NEW
+where Joining_Date >= date_add("2020-12-31",interval -10 year)
+
+SELECT Count(*)
+FROM   employee_dB_NEW
+WHERE  joining_date >= Date_add(now(), INTERVAL -10 year);
+=====================================================================================================
+    Question 1
+1/1 point (graded)
+On an average, after how many years employee’s get promoted in the company?
+
+select * from employee_dB_NEW.
+
+SELECT Round(Avg(Datediff(last_promoted, joining_date) / 365)) AS "years"
+FROM   employee_dB_NEW
+
+====================================================
+select upper(replace("vinod","d","sha"))
+
+==============================================================
+Question 1.2
+On an average, after how many years employee’s get promoted in the company?
+
+Round off the value to whole number.
+
+select * from employee_dB_NEW
+
+select ucase(substr("shashi",1,3))
+
+=========================================================================
+ques........Submit the employee code of employee ID 43.
+select * from employee_dB_NEW
+select concat(substr(FIRST_NAME,1,1),substr(Surname,1,1),"- ",year(joining_date),"-",gender,employee_id)"employee_id" from employee_dB_NEW
+
+where employee_id = 43
+==================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
